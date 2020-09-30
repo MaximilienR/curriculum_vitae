@@ -1,0 +1,20 @@
+h1 {color: red;}
+p {color:red  }
+body{background-color: rgb(216, 197, 112);}
+.carré {
+    margin: 0 auto;
+    margin-bottom: 5000px;
+    width: 450px;
+    height: 450px;
+    background: rgba(115, 115, 115, 115);
+            }
+button{width: 50px;
+    height: 50px;
+    margin-left: 450px;
+    background-color:  rgb(112, 216, 121);
+}
+@media screen and (min-widht:980px){
+    .carré{
+        width: 80%;
+        box-shadow: 0px 0px 10px red;
+    }

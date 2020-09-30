@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <meta charset="utf-8">
+    <title>Snake JS</title>
+    </head>
+
+    <body>
+        <div style="text-align: center"> <!-- plus moderne et correct que la balise<center> -->
+            <h1>Jeu du serpent en version javaScript</h1>
+    
+            <!-- défini un canvas avec une bordure de 2 px -->
+            <canvas id="snakeplane" style="border: 2px solid # 33ff72"></canvas> 
+
+        </div>
+
+        <script>
+
+
+        var largeur = 57 * 14,hauteur = 41 * 14 /* dimension du canvas en fonction du diametre de la
+tête du serpent pour que les deplacements tombent juste */
+        
+        var monCanvas = document.getElementById('snakeplane'); /* récupère le canvas */
+        var ctx = monCanvas.getContext ('2d') ;    /* défini un context 2D, ctx <=> context */
+        monCanvas.width = largeur;monCanvas.height = hauteur
+            
+        var snakeHead = {}
+        monCanvas.width = largeur;
+        monCanvas.height = hauteur;
+            
+        snakeHead.coordX = largeur / 2 ;
+        snakeHead.coordY = hauteur / 2 ;
+        snakeHead.couleur ="blue";
+            
+        var snakeHead = {}; /* cette variable va enregistrer les information utiles sur la 'tête' du 
+serpent dans un tableau associatif */
+        var snakeBody = [] ; /*le corp du serpent va être crée à partir d'un tableau qui contiendra une 
+        liste de 'tête' < ETAPE 3 */
+
+        snakeHead.coordX = largeur  / 2; /* permet de centrer la position de la 'tête' du serpent sur
+la largeur au debut du jeu */
+        snakeHead.coordY = hauteur / 2; /*  permet de centrer la position de la 'tête' du serpent sur
+la hauteur au debut du jeu */
+        
+        snakeHead.couleur = "blue" ; /* choisir la couleur du serpent */
+        var taille = 5; /* cette variable permettra de controler la longueur du serpent <-ETAPE 3 */
+            
+        var pomme = { coordX : -10 ,coordY : 0 , couleur : "red"}; /* déclare une cible, sa structure
+        est identique à celle 'snakeHead' pour etrecompatible avec la fonction estampiller <- ETAPE 4 */
+            
+ /* determine une vitesse de fonctionnementà 30
+répétitions par seconde, declarer la répétition dans une variable permetra de l'arréter en cas d'échec. */
+        var jeu = setInterval(boucleDeJeu, 1000 /10);
+
+function boucleDeJeu() { /* boucle principale du jeu */
+        test(); /* la fonction de test est déplacer en debut de boucle pour eviter des bug<- ETAPE 3 */
+        if (pomme.coordX<0){ newPomme() } /* créer une nouvelle cible <- ETAPE 4 */
+        ctx.fillStyle = "#f7fdaf" ; /* choisir une couleur de fond */
+        ctx.fillRect (0,0,largeur,hauteur) ; /* efface l'integralité du canvasavec la couleur de fond*/
+       
+         
+    
+      deplace(); /* fonction qui permet de déplacer la 'tête' du serpent , etape 2 */
+    
+        estampiller(snakeHead) ; /* la fonction estampiller permet de dessiner un element sur le canvas */
+        for (var i = 0 ; i < snakeBody.length ; i++ ){estampiller(snakeBody [i]) ; } /* boucle
+'for'qui permet de faire estampiller le serpent'morceau par morceau'<- ETAPE 3 */
+        estampiller (pomme); // estampiller la cible < ETAPE 4
+        // ancienne position de la fonction test() <-ETAPE 3
+      test(); /* verifie la partie n'est pas perdu ou si la cible est atteinte, etape 2 */
+        }
+
+function estampiller(element){ /* cette fonction sera utilisé pour afficher chaque élément
+du serpent ainsi que celle de la cible. */
+        ctx.fillStyle = element.couleur
+        ctx.beginPath()
+        ctx.arc(element.coordX, element.coordY, 7,0, 2*Math.PI);
+        ctx.fill();
+}
+
+            
+            /* STOP !!!!! ->à ce stade la page doit afficher un grand rectangle avec un petit cercle 
+d'un rayon de 7 px au milieu,, ne passer pas a la  suite si ça ne marche pas.Ne pas oublier les 
+balises script> /body> et /html> à la fin du document */
+
+
+           /* étape 2 : le déplacement, on récupèrer la frappe des touche du clavier pour determiner 
+le deplacement du serpent. */
+
+            /* !!!!!!!!!!!!!!> décommenterles fonctions deplace() et test() dans la boucleDeJeu() */
+            
+        var direct = { X : 2  , Y : 0 }; /* cette variable enregistre un " vecteur de déplacement", la 
+valeur"direct.X = 2" permet de bloquer la fonction 'deplace()'tant qu'aucune touche n'a pas été 
+saisie */
+            window.addEventListener('keydown', direction) ; /* cette commande permet d'"écouter" les touches
+clavier et envoie l 'information à la fonction direction */
+            
+function direction(e) {
+    
+        switch (e.key){
+            case "ArrowUp" : direct.X = 0 ; direct.Y = -1 // fléche du haut
+                break;
+            case "ArrowDown" : direct.X = 0 ; direct.Y = 1 // fléche du bas
+                break;
+            case "ArrowLeft" : direct.X = -1 ; direct.Y = 0 // fléche de gauche
+                break;
+            case "ArrowRight" : direct.X = 1 ; direct.Y = 0 // fléche de droite 
+                break;
+            default: break; // ignore toute les autres touches
+        }
+}
+ 
+function deplace(){
+    
+    if (direct.X != 2){ /*rend le deplacement impossible tant qu'aucune touche n'a été pressée
+    */
+        snakeBody.push({ coordX : snakeHead.coordX, coordY : snakeHead.coordY , couleur : snakeHead.couleur}) ; /* on ajoute la 'tête'actuelle au serpent à la fin du tableau qui
+enregistrele corp. <ETAPE 3*/
+        
+        if (snakeBody.length >taille) {snakeBody.shift()} /* si le serpent est trop long on 
+supprime la premiere valeur du tableau qui contient la plus ancienne coordonnée <-ETAPE 3 */
+        
+        snakeHead.coordX += 14 * direct.X ; /* deplace la coordonnée 'X'de la 'tête' du serpent
+d'une distance qui est 2 fois le rayon de la tête, si les fléche droite ou gauche ont été
+pressées.*/
+        snakeHead.coordY += 14 * direct.Y ; /* déplace la coordonnée 'Y' de la tête du serpent
+d'une distance qui est 2 fois le rayon de la tête, si les flécheshaut ou bas ont été pressées.
+*/
+    }
+}
+
+function test(){
+    
+    if (snakeHead.coordX < 7 || snakeHead.coordX > largeur -7 || snakeHead.coordY < 7 ||
+snakeHead.coordY > hauteur -7 ) { stop()} // si on touche un bord on arrete tout.
+    // à prévoir -> si le serpent se mort la queue
+    // à prévoir -> si le srpent touche la cible
+     for (var i = 0 ; i <snakeBody.length;i++ ) {if(snakeBody[i].coordX == snakeHead.coordX 
+&& snakeBody[i].coordY == snakeHead.coordY) {stop()}} /* vérifier que la tête n'est pas dans 
+le body <-ETAPE 3 */
+    if (snakeHead.coordX == pomme.coordX && snakeHead.coordY == pomme.coordY) { /* si la 
+    cible est atteinte <-ETAPE 4 */
+            taille += 5 ; // augmenter la taille de 5 <- ETAPE 4
+            newPomme() ; // créer une nouvelle cible <-ETAPE 4
+    }
+                                                    
+}
+             var score = 0;
+ 
+        document.getElementById("score").onclick=function(){
+            score = score + 1;
+        document.getElementById("score").value = score;
+        };    
+            
+function stop() {
+    
+    clearInterval(jeu); // permet d'arréter la répétition de boucleDeJeu()
+    alert('perdu !!'); // prévenir que la partie  est terminée
+    
+}
+   
+function newPomme() { // permet de créer une nouvelle cible <-ETAPE 4
+    do { //répéter : <-ETAPE 4
+    pomme.coordX = Math.floor(Math.random() * 57) * 14+7 ; /* nouvelle coordonnée X pour la 
+cible <-ETAPE 4 */
+    pomme.coordY = Math.floor(Math.random() * 41) * 14+7 ; /* nouvelle coordonnée Y pour la
+ cible <-ETAPE 4 */
+    } while(verifPomme(pomme.coordX,pomme.coordY)) /* tant que les nouvelles coordonnées sont 
+sur le serpent <-ETAPE4 */
+        
+        estampiller(pomme); //dessine la nouvelle pomme <-ETAPE 4
+}
+            
+function verifPomme(pommeX,PommeY){ /* pour vérifierque la nouvelle cible n'est pas sur le 
+serpent <-ETAPE 4 */
+        
+        if (pommeX == snakeHead.coordX && pommeY == snakeHead.coordY){return true ; } /*la
+fonction retrourne 'true' si la nouvelle cible est sur la tête <ETAPE 4 */
+    
+        for ( var i = 0 ; i< snakeBody.length ; i++) {
+            if ( pommeX == snakeBody[i].coordX &&pommeY == snakeBody[i].coordY) {return
+true ; }  /* on retourne true si la nouvelle cible est sur le corp  <-ETAPE 4 */
+        } //ETAPE 4
+    
+        return false ; /* la fonction retournera'false' aucun probleme n'a été trouver <-ETAPE 4
+*/
+} // ETAPE 4
+  
+        
+                    /* ETAPE 5 : sauvegarder une copie du fichier avant de casser
+                    /* ETAPE 6 : modifier le script de la fonction stop () pour afficher un score,et 
+    proposer une nouvelle partie ou de quitter la page */
+                    /* ETAPE 7 : modifier le script en ajoutant une variable de facon à pouvoir modifier 
+    facilement la taille du serpent et que l 'ensemble du programme s'adapte.
+    */           
+      </script>
+    </body>
+</html>
