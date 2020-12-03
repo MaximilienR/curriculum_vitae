@@ -1,0 +1,46 @@
+.logo {width: 1%;}
+.box  {background-color:burlywood}
+ 
+h1{color: brown;}
+h2{color: brown;
+   text-align: center;
+   text-decoration: underline brown;      }
+
+header {  background-color: antiquewhite; 
+    border-style:solid;
+    border-color:rgb(239, 182, 29);
+    -moz-border-radius:10px 10;
+    -webkit-border-radius:10px 0;
+    border-radius:10px 0;
+    margin-left: 5%;
+        margin-right: 5%;}
+section{margin-left: 5%;
+        margin-right: 5%;}
+.left {
+        float:left;
+            }
+.right {
+         float:right;
+                }
+ strong{text-decoration: underline;} 
+
+  
+ @media (max-width: 640px) {
+        .left {float: none;}
+        .right{float: none;}
+        .logo{width: 5%;}}
+@media(max-width:360px){
+        .left{display: none;}
+        .right{display: none;}
+}
+
+
+.forum { background-image:url(img/canon-eos-R5.jpg);
+        background-repeat:no-repeat;
+        background-size: 100% ;
+}
+@media(max-width:360px){
+        .forum{background-image:none;}
+        .forum{background-color:gray ;}
+}
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <link rel="stylesheet" href="style2.css" />
+    </head>
+
+    <body>
+ 
+        <h1>s'inscire</h1>
+        <form method="post" onSubmit="return validation(this)" >
+           
+            <p>nom</p>
+            <input name="m0" type="text" value=""><br />
+            <p>prenom</p>
+            <input name="m1" type="text" value=""><br />
+            <p>pseudo</p>
+            <input name="m2" type="text" value=""><br />
+            <p>Entrez votre mot de passe:</p>
+            <input name="mdp1" type="password" value=""><br />
+            <p>Entrez ce mot de passe à nouveau:</p>
+            <input name="mdp2" type="password" value="">
+<br>
+            <label for="sexe">quel est votre sexe </label><br />
+    <input type="radio" name="sexe" value="femme" id="femme" /> <label for="femme">femme</label><br />
+    <input type="radio" name="sexe" value="homme" id="homme" /> <label for="homme">homme</label><br />
+            <input type="submit">
+             
+            </form>
+          
+         
+        <script src="script.js"></script>
+    </body>
+</html>

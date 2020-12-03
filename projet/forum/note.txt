@@ -1,0 +1,17 @@
+ Réaliser un site web responsive  /ok  
+ d’une page d’accueil nommé index.html /ok
+ d’une page forum.html.
+
+1/ La page index.html comportera 
+des éléments de présentation du site pour indiquerque nous sommes sur un forum de discussion/ok
+ 
+2/ Elle comportera aussi deux boutons /ok
+qui permettront de faire apparaitre 
+soit un formulaire de connexion, 
+soit un formulaire d’inscription./ok 
+ Si l’un est affiché l’autre doit être masqué.Ces formulaires sont invisibles au chargement de la page./ok
+ Les boutons eux restent visibles sauf si un utilisateur est connecté, ils disparaissent  pour laisser place à un bouton de déconnexion./ok
+ 
+ 3/ Le formulaire  de  connexion  contiendra 
+  2  champs  de  saisis  clairement  identifiables/ok  
+1  bouton  de  connexion. L’authentification se fera par la saisie dans un champs d’un login ou email et d’un mot de passe pour l’autre champs.*/ok
