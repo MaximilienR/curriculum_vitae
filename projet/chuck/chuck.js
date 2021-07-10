@@ -1,8 +1,7 @@
 "use strict";
 /*Le mode strict élimine quelques erreurs silencieuses de JavaScript en les changeant en erreurs explicites .*/
 
-alert ('foo');
-/*je verrifie que mon js est bien relié et fonctionne si tout va bien je devrais voir foo*/
+ 
 
 function changer() {
     let reponseAleatoire = phrase[(Math.floor(Math.random() * (phrase.length-1)))];
